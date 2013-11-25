@@ -72,7 +72,7 @@ func runTemplate(cmd *Command, args []string) {
 		case "string", "password":
 			hook.Config[schema[1]] = ""
 		case "boolean":
-			hook.Config[schema[1]] = false
+			hook.Config[schema[1]] = "0"
 		}
 	}
 	hook.Schema = nil

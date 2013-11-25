@@ -1,7 +1,11 @@
 package main
 
 import (
+	"fmt"
 	"os"
+
+	"code.google.com/p/goauth2/oauth"
+	"github.com/google/go-github/github"
 )
 
 // The CLI magic was mostly stolen from https://github.com/heroku/force and https://github.com/heroku/hk
@@ -9,6 +13,7 @@ var commands = []*Command{
 	cmdHelp,
 	cmdTemplates,
 	cmdTemplate,
+	cmdAdd,
 }
 
 func main() {
@@ -30,6 +35,19 @@ func main() {
 		}
 	}
 	usage()
+}
+
+func mustClient() *github.Client {
+	if os.Getenv("GITHUB_TOKEN") == "" {
+		fatal("The GITHUB_TOKEN environment variable must be set")
+	}
+	t := &oauth.Transport{Token: &oauth.Token{AccessToken: os.Getenv("GITHUB_TOKEN")}}
+	return github.NewClient(t.Client())
+}
+
+func fatal(args ...interface{}) {
+	fmt.Println(args...)
+	os.Exit(1)
 }
 
 // operate on:

@@ -1,31 +1,31 @@
-# Gook
+# Hook
 
-Gook manages your GitHub service hooks.
+Hook manages your GitHub service hooks.
 
 ## Install
 
 ```go
-go get -u github.com/titanous/gook
+go get -u github.com/titanous/hook
 ```
 
-A `gook` binary will appear in your `$GOPATH/bin`.
+A `hook` binary will appear in your `$GOPATH/bin`.
 
 ## Usage
 
 ### Get a list of hook templates
 
 ```text
-gook templates
+hook templates
 ```
 
 ### Create a hook template
 
 ```text
-gook template web > webhook.json
+hook template web > webhook.json
 ```
 
 ### Add a hook
 
 ```text
-gook add -file webhook.json user/repo1 org/
+hook add -file webhook.json user/repo1 org/
 ```

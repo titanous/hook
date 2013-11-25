@@ -18,7 +18,7 @@ type HookTemplate struct {
 var cmdTemplates = &Command{
 	Usage: "templates",
 	Short: "List available hook templates",
-	Long:  "List available hook templates (to be used with `gook template`)",
+	Long:  "List available hook templates (to be used with `hook template`)",
 	Run:   runTemplates,
 }
 
@@ -48,7 +48,7 @@ func getJSON(url string, data interface{}) error {
 var cmdTemplate = &Command{
 	Usage: "template <name>",
 	Short: "Dump hook template JSON",
-	Long:  "Output a named hook template (list is available from `gook templates`)",
+	Long:  "Output a named hook template (list is available from `hook templates`)",
 	Run:   runTemplate,
 }
 

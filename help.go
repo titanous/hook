@@ -33,17 +33,17 @@ func runHelp(cmd *Command, args []string) {
 		}
 	}
 
-	fmt.Fprintf(os.Stderr, "Unknown help topic: %q. Run 'gook help'.\n", args[0])
+	fmt.Fprintf(os.Stderr, "Unknown help topic: %q. Run 'hook help'.\n", args[0])
 	os.Exit(2)
 }
 
 var usageTemplate = template.Must(template.New("usage").Parse(`
-Usage: gook <command> [<args>]
+Usage: hook <command> [<args>]
 
 Available commands:{{range .Commands}}{{if .Runnable}}{{if .List}}
 {{.Name | printf "%-10s"}} {{.Short}}{{end}}{{end}}{{end}}
 
-Run 'gook help [command]' for details.
+Run 'hook help [command]' for details.
 `[1:]))
 
 func printUsage() {

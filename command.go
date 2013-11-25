@@ -21,7 +21,7 @@ type Command struct {
 
 func (c *Command) printUsage() {
 	if c.Runnable() {
-		fmt.Printf("Usage: gook %s\n\n", c.Usage)
+		fmt.Printf("Usage: hook %s\n\n", c.Usage)
 	}
 	fmt.Println(strings.Trim(c.Long, "\n"))
 }

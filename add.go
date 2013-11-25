@@ -60,8 +60,6 @@ outer:
 		for _, h := range hooks {
 			if *hook.Name == "web" && *h.Name == "web" && h.Config["url"] == hook.Config["url"] || *h.Name == *hook.Name {
 				if len(h.Events) != len(hook.Events) || len(hook.Config) != len(h.Config) {
-					fmt.Printf("%#v\n", h.Events)
-					fmt.Printf("%#v\n", hook.Events)
 					replace = *h.ID
 					break
 				} else {

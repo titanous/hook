@@ -14,6 +14,7 @@ var commands = []*Command{
 	cmdTemplates,
 	cmdTemplate,
 	cmdAdd,
+	cmdDelete,
 }
 
 func main() {

@@ -1,9 +1,7 @@
 package main
 
 import (
-	"encoding/json"
 	"fmt"
-	"os"
 	"reflect"
 	"sort"
 	"strings"
@@ -25,31 +23,11 @@ func init() {
 var addHookFile = cmdAdd.Flag.String("file", "", "hook json config")
 
 func runAdd(cmd *Command, args []string) {
-	f, err := os.Open(*addHookFile)
-	if err != nil {
-		fatal("Error opening hook json:", err)
-	}
-	var hook github.Hook
-	if err := json.NewDecoder(f).Decode(&hook); err != nil {
-		fatal("Error reading hook json:", err)
-	}
-	sort.Strings(hook.Events)
+	hook := parseHook(*addHookFile)
 	client := mustClient()
-	var repos []string
-	for _, repoName := range args {
-		if strings.HasSuffix(repoName, "/") {
-			res, err := listRepos(client, repoName[:len(repoName)-1])
-			if err != nil {
-				fatal("Error listing repos:", err)
-			}
-			repos = append(repos, res...)
-		} else {
-			repos = append(repos, repoName)
-		}
-	}
 
 outer:
-	for _, repo := range repos {
+	for _, repo := range getRepos(client, args) {
 		ownerRepo := strings.SplitN(repo, "/", 2)
 		hooks, _, err := client.Repositories.ListHooks(ownerRepo[0], ownerRepo[1], &github.ListOptions{PerPage: 100})
 		if err != nil {
@@ -80,7 +58,7 @@ outer:
 				continue
 			}
 		}
-		_, _, err = client.Repositories.CreateHook(ownerRepo[0], ownerRepo[1], &hook)
+		_, _, err = client.Repositories.CreateHook(ownerRepo[0], ownerRepo[1], hook)
 		if err != nil {
 			fmt.Println(repo, "failed:", err)
 			continue
